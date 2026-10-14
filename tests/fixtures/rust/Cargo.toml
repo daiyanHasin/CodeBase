@@ -1,0 +1,4 @@
+[package]
+name = "bills"
+version = "0.1.0"
+description = "Command-line tool that totals bills."

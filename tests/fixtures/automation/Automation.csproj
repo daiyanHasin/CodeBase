@@ -1,0 +1,1 @@
+<Project Sdk="Microsoft.NET.Sdk"><ItemGroup><PackageReference Include="Reqnroll.NUnit" Version="2.0.0" /><PackageReference Include="Selenium.WebDriver" Version="4.20.0" /></ItemGroup></Project>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CodeBase</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>try { const t = localStorage.getItem('cb-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <div class="shell" id="shell">
+    <aside class="side" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="CodeBase home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 23 L13 23 L18 10 L27 10" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5" cy="23" r="3.4" fill="var(--bg)" stroke="var(--text)" stroke-width="2"/><circle cx="15.5" cy="16.5" r="3.4" fill="var(--bg)" stroke="var(--text)" stroke-width="2"/><circle cx="27" cy="10" r="3.4" fill="var(--accent)"/></svg>
+        CodeBase
+      </a>
+
+      <div class="switcher">
+        <button id="projectBtn" class="project-btn" aria-haspopup="menu" aria-expanded="false">
+          <span class="project-label">Project</span>
+          <span id="projectName" class="project-name">No project</span>
+          <span id="projectKind" class="project-kind"></span>
+        </button>
+        <div id="projectMenu" class="menu" role="menu" hidden></div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-group">Understand</div>
+        <button data-view="overview" class="active">Overview</button>
+        <button data-view="architecture">Architecture <span id="checkCount" class="badge warn" hidden></span></button>
+        <button data-view="flows">Flows</button>
+        <button data-view="tree">Tree</button>
+        <button data-view="history">History</button>
+        <div class="nav-group">Work</div>
+        <button data-view="ask">Ask AI <span id="askCount" class="badge" hidden></span></button>
+        <button data-view="memory">Memory</button>
+        <button data-view="cleanup">Clean up</button>
+      </nav>
+
+      <div class="side-foot">
+        <div id="live" class="live" title="Live updates">Connecting</div>
+        <button id="themeBtn" class="link-btn" title="Switch between light and dark">Theme: system</button>
+        <a href="/docs" target="_blank" rel="noopener">Documentation</a>
+        <span id="appVersion" class="muted"></span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="titles">
+          <h1 id="viewTitle">Overview</h1>
+          <span id="viewSub" class="muted"></span>
+        </div>
+        <div class="search">
+          <input id="search" type="search" placeholder="Find a file, flow or part" autocomplete="off" aria-label="Find a file, flow or part">
+          <kbd class="search-key">/</kbd>
+          <ul id="searchResults" class="search-results" role="listbox" hidden></ul>
+        </div>
+        <button id="refreshBtn" class="btn ghost" title="Scan the project again">Refresh</button>
+      </header>
+
+      <section class="view" id="view-overview" aria-label="Overview"></section>
+      <section class="view" id="view-architecture" aria-label="Architecture" hidden></section>
+      <section class="view" id="view-flows" aria-label="Flows" hidden></section>
+
+      <section class="view tree-view" id="view-tree" aria-label="Tree" hidden>
+        <div id="tree3d" class="tree-canvas"></div>
+        <div id="tree2d" class="tree-svg" hidden></div>
+        <div id="labels" class="labels" aria-hidden="true"></div>
+        <div class="tree-tools">
+          <div class="seg" role="group" aria-label="View">
+            <button data-tdim="3" aria-pressed="true" title="Each part's pieces sit on a ring below it">3D</button>
+            <button data-tdim="2" aria-pressed="false" title="A flat tree, read left to right">2D</button>
+          </div>
+          <div class="seg" role="group" aria-label="Open">
+            <button id="treeOpenAll" title="Show every file">Open all</button>
+            <button id="treeCloseAll" title="Show only the parts">Parts only</button>
+          </div>
+          <label class="check"><input type="checkbox" id="treeLinks"> Show how parts connect</label>
+          <button id="treeFit" class="btn ghost small">Fit</button>
+        </div>
+        <div id="treeBar" class="highlight-bar" hidden></div>
+        <div id="treeLegend" class="legend"></div>
+      </section>
+
+      <section class="view" id="view-history" aria-label="History" hidden></section>
+      <section class="view" id="view-ask" aria-label="Ask AI" hidden></section>
+      <section class="view" id="view-memory" aria-label="Memory" hidden></section>
+      <section class="view" id="view-cleanup" aria-label="Clean up" hidden></section>
+    </main>
+
+    <aside id="inspector" class="inspector" aria-label="Details" hidden>
+      <div class="insp-head">
+        <span class="insp-kind" id="inspKind">File</span>
+        <button id="inspClose" class="btn ghost small" aria-label="Close details">Close</button>
+      </div>
+      <div id="inspBody" class="insp-body"></div>
+    </aside>
+  </div>
+
+  <dialog id="openDialog" class="dialog">
+    <form method="dialog" id="openForm">
+      <h2>Open a project</h2>
+      <p class="muted">Paste a folder path on this computer, or a GitHub link. Links are downloaded with their full history, so every version shows in History.</p>
+      <input id="openTarget" placeholder="D:\projects\my-app  or  https://github.com/user/repo" autocomplete="off">
+      <p id="openMsg" class="msg" role="status"></p>
+      <div class="actions">
+        <button value="cancel" class="btn ghost">Cancel</button>
+        <button id="openGo" value="go" class="btn primary">Open</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="diffDialog" class="dialog wide">
+    <div class="diff-head"><div id="diffTitle"></div><button class="btn ghost small" id="diffClose">Close</button></div>
+    <pre id="diffBody" class="diff"></pre>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script src="/vendor/3d-force-graph.js"></script>
+  <script src="/vendor/highlight.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

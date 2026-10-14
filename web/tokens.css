@@ -1,0 +1,106 @@
+/* CodeBase design tokens, shared by the app, the docs and the landing page.
+   Cool slate neutrals, one calm blue accent, and six "family" colours that say
+   where a part sits on the data path. Dark and light follow the system setting;
+   the app can force either with data-theme on <html>. */
+:root {
+  --bg: #15181d;
+  --surface: #1b1f26;
+  --raised: #232832;
+  --sunken: #12151a;
+  --line: #313844;
+  --line-soft: #252b34;
+  --text: #e6e9ed;
+  --text-2: #a0a8b4;
+  --text-3: #6e7682;
+  --accent: #5b8def;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(91, 141, 239, 0.14);
+  --ok: #4fb47c;
+  --bad: #e06c5c;
+  --warn: #d9a441;
+  --info: #5b8def;
+  --code-bg: #12151a;
+  --shadow: 0 10px 30px rgba(4, 8, 14, 0.45);
+
+  /* families: where a part sits on the data path */
+  --f-people: #5b8def;   /* what people see or write: screens, scenarios, commands */
+  --f-request: #2fa39a;  /* carries a request: API client, routes, controllers, step definitions */
+  --f-logic: #9584e6;    /* does the work: business logic, page objects, jobs, training */
+  --f-data: #d08a3e;     /* holds data: models, database, test data */
+  --f-outside: #6f8199;  /* outside this project: the app under test, an external server */
+  --f-support: #7d8794;  /* helpers, settings, build, docs */
+
+  /* older names, still used by the docs and landing page */
+  --l-ui: var(--f-people);
+  --l-server: var(--f-request);
+  --l-logic: var(--f-logic);
+  --l-data: var(--f-data);
+  --l-setup: var(--f-support);
+  --l-tests: var(--ok);
+  --l-docs: var(--f-support);
+  --l-scripts: var(--f-logic);
+  --l-media: #5d646e;
+
+  --sans: "Segoe UI Variable Text", "Segoe UI", "SF Pro Text", -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
+  --display: "Segoe UI Variable Display", "Segoe UI", "SF Pro Display", -apple-system, system-ui, sans-serif;
+  --mono: "Cascadia Code", "JetBrains Mono", "SF Mono", ui-monospace, Consolas, monospace;
+
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --r1: 4px; --r2: 6px; --r3: 10px;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f3f5f8;
+    --surface: #ffffff;
+    --raised: #ffffff;
+    --sunken: #eaedf2;
+    --line: #d6dce4;
+    --line-soft: #e6e9ef;
+    --text: #18202b;
+    --text-2: #536070;
+    --text-3: #8792a1;
+    --accent: #2f6bdb;
+    --accent-soft: rgba(47, 107, 219, 0.1);
+    --ok: #2e8f5a;
+    --bad: #c24b3b;
+    --warn: #b07a12;
+    --info: #2f6bdb;
+    --code-bg: #f6f8fa;
+    --shadow: 0 10px 28px rgba(24, 32, 43, 0.12);
+    --f-people: #2f6bdb;
+    --f-request: #1d8a82;
+    --f-logic: #6f5cd1;
+    --f-data: #b86f22;
+    --f-outside: #5f718a;
+    --f-support: #7a8492;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --raised: #ffffff;
+  --sunken: #eaedf2;
+  --line: #d6dce4;
+  --line-soft: #e6e9ef;
+  --text: #18202b;
+  --text-2: #536070;
+  --text-3: #8792a1;
+  --accent: #2f6bdb;
+  --accent-soft: rgba(47, 107, 219, 0.1);
+  --ok: #2e8f5a;
+  --bad: #c24b3b;
+  --warn: #b07a12;
+  --info: #2f6bdb;
+  --code-bg: #f6f8fa;
+  --shadow: 0 10px 28px rgba(24, 32, 43, 0.12);
+  --f-people: #2f6bdb;
+  --f-request: #1d8a82;
+  --f-logic: #6f5cd1;
+  --f-data: #b86f22;
+  --f-outside: #5f718a;
+  --f-support: #7a8492;
+  color-scheme: light;
+}

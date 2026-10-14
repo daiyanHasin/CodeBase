@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CodeBase documentation</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/site.css">
+  <script>try { const t = localStorage.getItem('cb-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+  <header class="topnav">
+    <div class="wrap" style="max-width:1400px">
+      <button class="btn small menu-btn" id="menuBtn" aria-controls="docsNav" aria-expanded="false">Menu</button>
+      <a class="brand" href="/welcome"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>CodeBase</a>
+      <nav aria-label="Site"><a href="/docs" aria-current="page">Docs</a><a href="/welcome">Product</a></nav>
+      <span class="spacer"></span>
+      <button class="theme-toggle" id="themeBtn" aria-label="Switch light or dark theme">Light</button>
+      <a class="btn small" href="/">Open the app</a>
+    </div>
+  </header>
+
+  <div class="docs">
+    <aside class="docs-nav" id="docsNav" aria-label="Documentation">
+      <div class="docs-search"><input id="docSearch" type="search" placeholder="Search the docs" aria-label="Search the docs"><kbd>/</kbd></div>
+      <div id="navGroups"></div>
+    </aside>
+
+    <main class="docs-main">
+      <div class="crumb" id="crumb"></div>
+      <div id="pages">
+
+<article class="article" data-page="introduction" data-title="Introduction" data-group="Getting started">
+  <h1>Introduction</h1>
+  <p class="intro">CodeBase shows you what a software project is made of and how its parts fit together, in words you do not need a computer science degree to follow.</p>
+  <h2 id="who">Who it is for</h2>
+  <p>It is built for people who create apps with AI tools such as Cursor, Claude, ChatGPT or Copilot, including people who do not come from a programming background. The AI writes the code quickly; CodeBase helps you keep up with what it wrote, and helps you ask for the next change precisely.</p>
+  <h2 id="what">What it does</h2>
+  <ul>
+    <li><b>Finds the architecture, not the folders.</b> Every file gets the part it plays in the design (screen, API client, route, controller, business logic, model; or scenario, step definition, page object, driver, hook, test data), read from what the code does and what it is called. CodeBase then works out what kind of project it is and the order data moves through those parts.</li>
+    <li><b>Traces flows end to end.</b> A screen is followed through the request it sends, the route that answers it, the controller, the business logic and the models. A test scenario is followed line by line to its step definitions, page objects, driver, hooks and data.</li>
+    <li><b>Puts journeys in order.</b> Flows are grouped into journeys such as sign up, log in, request a ride, pay, and ordered the way people move through an app.</li>
+    <li><b>Keeps the whole history.</b> Every commit in plain words, the design at any version compared with today, and automatic save points for folders without Git.</li>
+    <li><b>Checks the design.</b> Scenario steps with no step definition, steps that skip page objects, files that depend on each other in a loop, code nothing uses.</li>
+    <li><b>Writes prompts.</b> Describe a change or paste an error; CodeBase picks the files involved, adds the architecture and journeys, and fits it to your AI chat's size.</li>
+  </ul>
+  <p>None of this needs an AI. CodeBase reads code without running it. An AI chat is optional, for naming journeys or describing files in your own project's words, and you paste its answer back yourself.</p>
+  <h2 id="local">Everything stays on your computer</h2>
+  <p>CodeBase is one program that runs a small private web page on your own machine (at <code>http://127.0.0.1:4321</code>). Your code is never uploaded. Prompts go nowhere until you copy and paste them yourself.</p>
+</article>
+
+<article class="article" data-page="quick-start" data-title="Quick start" data-group="Getting started">
+  <h1>Quick start</h1>
+  <p class="intro">Install CodeBase, open your first project, and make your first prompt. This takes about five minutes.</p>
+
+  <h2 id="install">Install</h2>
+  <h3>Option A: download the program</h3>
+  <p>If you received <code>codebase.exe</code> (Windows) or <code>codebase</code> (macOS, Linux), put it in any folder you like. There is nothing else to install.</p>
+  <div class="note tip"><b>Tip</b>On Windows, the included <code>CodeBase.bat</code> starts the program with one double-click and keeps its window open if something goes wrong.</div>
+
+  <h3>Option B: build it from source</h3>
+  <p>You need Rust, which you can install from <code>rustup.rs</code>. Then, in the CodeBase folder:</p>
+  <div class="codeblock"><span class="lang">terminal</span><pre>cargo build --release</pre></div>
+  <p>The first build downloads its libraries and takes a few minutes. The finished program is <code>target/release/codebase</code> (or <code>codebase.exe</code> on Windows). <code>CodeBase.bat</code> builds it for you automatically the first time if Rust is installed.</p>
+  <div class="note warn"><b>Windows</b>Rust on Windows also needs the "Desktop development with C++" build tools. The Rust installer offers to set them up for you.</div>
+
+  <h2 id="first-project">Open your first project</h2>
+  <ol class="steps">
+    <li><b>Start CodeBase.</b> Double-click <code>CodeBase.bat</code>, or run <code>codebase</code> in a terminal.</li>
+    <li><b>Choose a folder.</b> On the first run a folder picker opens. Choose the top folder of your project, the one that contains <code>package.json</code>, <code>composer.json</code> or similar. Next time CodeBase reopens your last project automatically.</li>
+    <li><b>Let your browser open.</b> CodeBase opens <code>http://127.0.0.1:4321</code>. Keep the black terminal window open while you work; closing it stops CodeBase.</li>
+  </ol>
+  <p>You can also open a project directly from a terminal, by path or by GitHub link:</p>
+  <div class="codeblock"><span class="lang">terminal</span><pre>codebase "D:\projects\invoice-tracker"
+codebase https://github.com/user/repo</pre></div>
+
+  <h2 id="first-look">Take a first look</h2>
+  <ol class="steps">
+    <li><b>Overview</b> says what the project is, what kind of design it has, the journeys people take through it, and anything that needs attention.</li>
+    <li><b>Architecture</b> draws the path data takes through the parts. Click a part to see its files and what it uses.</li>
+    <li><b>Flows</b> lists every journey in order. Pick a flow and press <b>Play the flow</b> to watch it move from the first screen or scenario line down to the data.</li>
+    <li><b>Tree</b> shows the project as a tree: project, parts, groups, files. Click a part to open it.</li>
+    <li><b>History</b> shows every version in plain words.</li>
+  </ol>
+
+  <h2 id="teach">Teach it once</h2>
+  <p>Automatic summaries are a start. For a much clearer map, give CodeBase plain descriptions of the project and its main folders:</p>
+  <ol class="steps">
+    <li><b>Open Memory</b> and keep "The project and its main folders" selected. Press <b>Build the prompt</b>.</li>
+    <li><b>Copy it into any AI chat</b> (ChatGPT, Claude, Gemini, DeepSeek) and send it.</li>
+    <li><b>Paste the answer back</b> into step 3 and press <b>Save descriptions</b>.</li>
+  </ol>
+
+  <h2 id="first-prompt">Make your first prompt</h2>
+  <ol class="steps">
+    <li><b>Open Ask AI</b> and write what you want in your own words, for example "add a due date to invoices and show it in the list", or paste an error message.</li>
+    <li><b>Pick a size</b> that fits your chat, from 4k for small free chats to 32k for long-context models, and press <b>Build context pack</b>.</li>
+    <li><b>Check the list.</b> Every file shows why it was picked. Switch any file between full code, outline, summary or off.</li>
+    <li><b>Copy the pack</b> and paste it as the first message of a new chat. On a flow, <b>Copy context for this flow</b> does all of this in one click.</li>
+  </ol>
+</article>
+
+<article class="article" data-page="architecture" data-title="Architecture" data-group="Using CodeBase">
+  <h1>Architecture</h1>
+  <p class="intro">Folders say where files are kept. Architecture says what each file does and how data moves between them. CodeBase shows the second.</p>
+  <h2 id="parts">Parts</h2>
+  <p>Every file is given the part it plays in the design. CodeBase decides from three kinds of evidence, strongest first:</p>
+  <ol class="steps">
+    <li><b>What the code does.</b> It defines web addresses, sends requests, starts a browser or device, finds screen elements, checks results, queries a database, or calls a payment or email service. A router that shows a component makes that component a screen, wherever it lives.</li>
+    <li><b>What the file is called.</b> <code>article.service.ts</code> is business logic and <code>RideController.php</code> is a controller, even inside a folder called <code>routes/</code>.</li>
+    <li><b>Where it sits.</b> Folder names fill the gaps: <code>Pages/</code>, <code>StepDefinitions/</code>, <code>migrations/</code>.</li>
+  </ol>
+  <h2 id="kinds">Kinds of project</h2>
+  <table>
+    <thead><tr><th>Kind</th><th>The path data takes</th></tr></thead>
+    <tbody>
+      <tr><td>Test automation framework</td><td>Scenarios → test cases → step definitions → page objects → driver → app under test, with hooks, test data and settings beside it</td></tr>
+      <tr><td>Full-stack app</td><td>Screens → UI components → state → API client → routes → guards → controllers → validation → business logic → external services → data access → models → database</td></tr>
+      <tr><td>Server-rendered web app</td><td>Routes → guards → controllers → validation → business logic → data access → models → database → templates</td></tr>
+      <tr><td>Backend API</td><td>Start-up → routes → guards → controllers → business logic → data access → models → database</td></tr>
+      <tr><td>Front-end or mobile app</td><td>Start-up → screens → UI components → state → API client → server</td></tr>
+      <tr><td>Machine learning project</td><td>Data loading → model → training → evaluation</td></tr>
+      <tr><td>Command-line tool</td><td>Start-up → commands → business logic → external services → models</td></tr>
+    </tbody>
+  </table>
+  <p>Only the parts your project has are drawn. A dashed arrow means the two parts are expected to connect but no import between them was found.</p>
+  <h2 id="checks">Design checks</h2>
+  <table>
+    <thead><tr><th>Check</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Scenario steps with no step definition</td><td>These lines fail with "step not found" when the test runs.</td></tr>
+      <tr><td>Step definitions that find screen elements themselves</td><td>They skip the page objects, so a changed screen has to be fixed in several places.</td></tr>
+      <tr><td>Page objects that check results</td><td>Pass or fail belongs in the steps, so failures point at the right place.</td></tr>
+      <tr><td>A part that depends on a part later in the path</td><td>Data flowing backwards makes the two hard to change separately.</td></tr>
+      <tr><td>Controllers that query the database</td><td>Other code goes through business logic or data access; mixing both hides the rules.</td></tr>
+      <tr><td>Files that depend on each other in a loop</td><td>A change in one ripples through all of them.</td></tr>
+      <tr><td>Step definitions no scenario uses, and code nothing reaches</td><td>Possibly dead code, or loaded by the framework by name.</td></tr>
+    </tbody>
+  </table>
+</article>
+
+<article class="article" data-page="flows" data-title="Flows and journeys" data-group="Using CodeBase">
+  <h1>Flows and journeys</h1>
+  <p class="intro">A flow is one thing happening from start to finish. A journey is the flows that belong together, like everything about logging in.</p>
+  <h2 id="kinds-of-flow">Kinds of flow</h2>
+  <table>
+    <thead><tr><th>Flow</th><th>Starts from</th><th>Followed through</th></tr></thead>
+    <tbody>
+      <tr><td>Scenario</td><td>A Gherkin scenario (SpecFlow, Reqnroll, Cucumber, behave)</td><td>Each line to its step definition, then page objects, helpers, test data and driver. Background steps are included.</td></tr>
+      <tr><td>Maestro flow</td><td>A Maestro YAML flow</td><td>Its commands, the sub-flows it runs and the data files it reads.</td></tr>
+      <tr><td>Test</td><td>A test function in an end-to-end or automation project</td><td>Page objects, data and driver.</td></tr>
+      <tr><td>Request</td><td>A web address the server answers, such as <code>POST /api/rides</code></td><td>Route, controller, validation, business logic, external services, data access, models.</td></tr>
+      <tr><td>Screen</td><td>A screen people visit</td><td>Its components, state and API client, then across to the server route that answers each request it sends.</td></tr>
+    </tbody>
+  </table>
+  <h2 id="order">Journey order</h2>
+  <p>Journeys are ordered the way people move through an app: set up, sign up, log in, profile, browse, create, plan, assign, track, pay, finish, log out. Inside a journey, screens and scenarios come first, then the requests that answer them: create, then read, then change, then delete.</p>
+  <h2 id="ai-names">Naming journeys with AI</h2>
+  <p>Automatic journey names come from your code's words. For names a product person would use, open <b>Flows</b>, expand <b>Name and order the journeys with your AI chat</b> at the bottom, press <b>Copy the prompt</b>, paste it into any chat, paste its answer back and press <b>Save journeys</b>. Your names and order are saved in <code>.codebase/memory.json</code> and win from then on; <b>Go back to automatic journeys</b> undoes them.</p>
+  <h2 id="limits">What a flow cannot see</h2>
+  <p>Flows follow imports and addresses in the code. Wiring that only happens when the program runs (dependency injection, routes built from strings, reflection) is invisible. A flow is per file, so a screen that imports one function from an API file is shown with every request that file sends.</p>
+</article>
+
+<article class="article" data-page="tree" data-title="The tree" data-group="Using CodeBase">
+  <h1>The tree</h1>
+  <p class="intro">The tree shows the project as an m-ary tree: the project, then its parts, then groups, then files. Every node has a fixed place, so nothing drifts.</p>
+  <h2 id="tree-3d">3D</h2>
+  <p>The parts stand in a row, left to right in the order data moves through them. A blue line with moving dots joins them along the data path. Each part's files sit on a ring below it. Drag to turn, scroll to zoom, click a part to open or close it.</p>
+  <h2 id="tree-2d">2D</h2>
+  <p>A flat tree read top to bottom in the same order, with file names always shown. Better for large projects and for reading names.</p>
+  <h2 id="tree-links">Show how parts connect</h2>
+  <p>Draws a line from each part (or open file) to the parts it uses. Lines are summed, so a closed part shows one line however many of its files are involved.</p>
+  <h2 id="tree-controls">Controls</h2>
+  <table>
+    <thead><tr><th>Action</th><th>How</th></tr></thead>
+    <tbody>
+      <tr><td>Open or close a part</td><td>Click it</td></tr>
+      <tr><td>File details</td><td>Click a file</td></tr>
+      <tr><td>Show every file, or parts only</td><td><b>Open all</b>, <b>Parts only</b></td></tr>
+      <tr><td>Show a flow on the tree</td><td><b>Show on tree</b> on any flow, part or file</td></tr>
+      <tr><td>Find anything</td><td>Press <kbd>/</kbd></td></tr>
+      <tr><td>Close the details panel</td><td><kbd>Esc</kbd></td></tr>
+    </tbody>
+  </table>
+</article>
+
+<article class="article" data-page="history" data-title="History" data-group="Using CodeBase">
+  <h1>History</h1>
+  <p class="intro">Every version of the project in plain words, without any Git commands. CodeBase only reads; it never commits, pushes, pulls or switches versions.</p>
+  <h2 id="timeline">The timeline</h2>
+  <p>Each commit shows what kind of change it was (new thing, fix, clean-up, tests, docs, setup), which parts of the design it touched, and the files it added or removed. Tags appear as version markers. Filter by kind, by part, or by words in messages, files and names.</p>
+  <h2 id="compare">Compare the design then and now</h2>
+  <p>Open a commit and press <b>Compare the design then and now</b> to see how many files each part had at that version, and which files have been added or removed since.</p>
+  <h2 id="see-change">See one change</h2>
+  <p><b>See change</b> next to a file shows exactly which lines that commit added and removed.</p>
+  <h2 id="no-git">Folders without Git</h2>
+  <p>While CodeBase is open it records save points: which files were added, changed or removed, merging edits made within two minutes of each other. They are kept in <code>.codebase/journal.json</code>.</p>
+  <h2 id="links">Projects opened by link</h2>
+  <p>GitHub links are downloaded with their full history so every version shows. Projects downloaded by older builds, which kept only the newest commit, get their full history on the next update.</p>
+</article>
+
+<article class="article" data-page="ask-ai" data-title="Ask AI" data-group="Using CodeBase">
+  <h1>Ask AI</h1>
+  <p class="lead">Ask AI builds a <b>context pack</b>: one block of text that gives your AI chat exactly the files it needs for a task, sized to fit the chat. CodeBase is the librarian; your chat is the expert.</p>
+  <h2>1. Say what you want</h2>
+  <p>Write the change in your own words, or paste an error message or stack trace exactly as you got it. CodeBase finds the project files an error names, even when the paths come from another computer, and notes the line numbers. Press <b>Build context pack</b> or <kbd>Ctrl</kbd> + <kbd>Enter</kbd>.</p>
+  <h2>2. Pick a size</h2>
+  <table>
+    <tr><th>Size</th><th>Use it for</th></tr>
+    <tr><td>4k</td><td>Small free chats, or a very focused question</td></tr>
+    <tr><td>8k</td><td>Free ChatGPT, Claude and Gemini (the default)</td></tr>
+    <tr><td>16k</td><td>Most paid chats</td></tr>
+    <tr><td>32k</td><td>Long-context models</td></tr>
+  </table>
+  <p>Sizes are in tokens, the units AI chats count text in. CodeBase counts one token per four characters.</p>
+  <h2>3. Check the list, then copy</h2>
+  <p>Every chosen file shows why it was picked. Use its menu to change how it is included:</p>
+  <table>
+    <tr><th>Option</th><th>What the AI gets</th></tr>
+    <tr><td>Full code</td><td>The whole file. The AI may change it.</td></tr>
+    <tr><td>Part</td><td>Only the lines around an error. The AI may change it.</td></tr>
+    <tr><td>Outline</td><td>Class and function names only, so the AI knows the file exists.</td></tr>
+    <tr><td>Summary</td><td>One line saying what the file does.</td></tr>
+    <tr><td>Off</td><td>Nothing.</td></tr>
+  </table>
+  <p><b>Auto</b> hands a file back to CodeBase. Press <b>Copy context pack</b> and paste it as the first message of a new chat. If the AI replies <code>NEED FILES: …</code>, add those files and copy again.</p>
+  <h2>Copy context for this</h2>
+  <p>Every file, folder and feature has a <b>Copy context for this</b> button. One click builds a pack around it and copies it; then type your request at the top of the chat. Files you pin (<kbd>Shift</kbd> + click on the map, or <b>Pin to Ask AI</b>) are always included in full.</p>
+  <h2>How files are picked</h2>
+  <p>Start files come from the error, from names you typed that a file defines, and from a keyword search over file names, definitions, summaries, your Memory notes and commit messages. CodeBase then adds what those files use, what uses them, their tests and files that Git says change together with them, and fills your size: full code first, outlines for neighbours, one-line summaries for the rest. Links come from reading the code, not running it, and the AI is told so.</p>
+</article>
+
+<article class="article" data-page="memory" data-title="Teaching CodeBase" data-group="Using CodeBase">
+  <h1>Teaching CodeBase</h1>
+  <p class="intro">Plain descriptions make the overview, feature stories and prompts much clearer. You can write them yourself or let any AI chat write them.</p>
+  <h2 id="ways">Three ways to describe</h2>
+  <ul>
+    <li><b>The project and its main folders.</b> The best first step: one prompt covers the whole project.</li>
+    <li><b>Files without a description</b>, most-used files first, in batches of 15, 30 or 60.</li>
+    <li><b>Files in one feature</b>, from the Features page or the Memory list.</li>
+  </ul>
+  <h2 id="reply">If the reply does not save</h2>
+  <p>CodeBase expects a JSON object such as <code>{"src/": "…"}</code>. It also accepts lines in the form <code>path: description</code>. Paths that are not in the project are skipped and counted.</p>
+  <h2 id="outdated">Outdated descriptions</h2>
+  <p>When a described file changes, its details panel shows "This file changed after it was described". Press <b>Still accurate</b> to keep the text, or edit it. Memory can also build a prompt for every outdated description at once.</p>
+</article>
+
+<article class="article" data-page="clean-up" data-title="Hiding files" data-group="Using CodeBase">
+  <h1>Hiding files</h1>
+  <p class="intro">CodeBase skips noise automatically, and you can hide anything else.</p>
+  <h2 id="automatic">Skipped automatically</h2>
+  <p>Dependencies (<code>node_modules</code>, <code>vendor</code>), build output (<code>dist</code>, <code>build</code>, <code>target</code>), caches, virtual environments, lock files, minified files, source maps, Laravel's <code>storage/framework</code> and <code>bootstrap/cache</code>, and everything listed in the project's <code>.gitignore</code> files.</p>
+  <h2 id="patterns">Your own rules</h2>
+  <p>Clean up suggests generated, minified and very large files. You can also add patterns in <code>.gitignore</code> syntax:</p>
+  <table>
+    <thead><tr><th>Pattern</th><th>Hides</th></tr></thead>
+    <tbody>
+      <tr><td><code>public/assets/</code></td><td>That folder and everything in it</td></tr>
+      <tr><td><code>*.generated.ts</code></td><td>Every file ending in .generated.ts</td></tr>
+      <tr><td><code>/notes.md</code></td><td>Only notes.md at the top of the project</td></tr>
+    </tbody>
+  </table>
+</article>
+
+<article class="article" data-page="cli" data-title="Command line" data-group="Reference">
+  <h1>Command line</h1>
+  <p class="intro">Everything the <code>codebase</code> program accepts.</p>
+  <div class="codeblock"><span class="lang">usage</span><pre>codebase [folder | git-url] [--pick] [--port 4321] [--host 127.0.0.1] [--no-open]</pre></div>
+  <table>
+    <thead><tr><th>Option</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td><code>folder</code></td><td>Open a local folder. Relative paths are fine.</td></tr>
+      <tr><td><code>git-url</code></td><td>Clone a repository into <code>~/.codebase/repos</code> (or update it if already there), then open it. Needs Git.</td></tr>
+      <tr><td><em>(nothing)</em></td><td>Reopen the most recent project; on first run, show a folder picker (Windows) or use the current folder.</td></tr>
+      <tr><td><code>--pick</code></td><td>Always show the folder picker (Windows).</td></tr>
+      <tr><td><code>--port</code></td><td>First port to try. If it is busy, the next free one up to 20 higher is used.</td></tr>
+      <tr><td><code>--host</code></td><td>Network address to listen on. Use <code>0.0.0.0</code> to open CodeBase from another device on your network.</td></tr>
+      <tr><td><code>--no-open</code></td><td>Do not open the browser automatically.</td></tr>
+      <tr><td><code>--version</code>, <code>--help</code></td><td>Print the version or a short help text.</td></tr>
+    </tbody>
+  </table>
+  <div class="note warn"><b>Security</b>With <code>--host 0.0.0.0</code>, anyone on the same network can read your code through CodeBase. Use it only on networks you trust.</div>
+</article>
+
+<article class="article" data-page="configuration" data-title="Files and settings" data-group="Reference">
+  <h1>Files and settings</h1>
+  <p class="intro">Where CodeBase keeps what it learns.</p>
+  <table>
+    <thead><tr><th>Path</th><th>Contents</th></tr></thead>
+    <tbody>
+      <tr><td><code>&lt;project&gt;/.codebase/memory.json</code></td><td>Descriptions of files and folders, who wrote them, and recent prompts per file.</td></tr>
+      <tr><td><code>&lt;project&gt;/.codebase/config.json</code></td><td>Your hidden-file patterns.</td></tr>
+      <tr><td><code>&lt;project&gt;/.codebase/journal.json</code></td><td>Save points for folders without Git.</td></tr>
+      <tr><td><code>~/.codebase/recent.json</code></td><td>Recently opened projects.</td></tr>
+      <tr><td><code>~/.codebase/repos/</code></td><td>Repositories opened by link.</td></tr>
+    </tbody>
+  </table>
+  <p>Commit <code>.codebase/</code> if you want descriptions to travel with the repository, or add it to <code>.gitignore</code> to keep them personal. Projects that were opened with the earlier Canopy builds keep their notes: CodeBase reads <code>.canopy/</code> when <code>.codebase/</code> does not exist yet.</p>
+  <h2 id="http">Local HTTP interface</h2>
+  <p>The app talks to the program over a small local API. It is documented here for people who want to script it.</p>
+  <table>
+    <thead><tr><th>Request</th><th>Returns</th></tr></thead>
+    <tbody>
+      <tr><td><code>GET /api/graph</code></td><td>Every file and its part, links, the architecture (<code>arch</code>), design checks, flows and journeys.</td></tr>
+      <tr><td><code>GET /api/timeline</code></td><td>Commits in plain words, uncommitted edits and save points.</td></tr>
+      <tr><td><code>GET /api/at?rev=…</code></td><td>The design at a commit or tag, compared with today.</td></tr>
+      <tr><td><code>GET /api/diff?rev=…&amp;path=…</code></td><td>What one commit changed in one file.</td></tr>
+      <tr><td><code>POST /api/journeys</code></td><td>Saves journey names and order: <code>{"journeys": [{"name", "about", "flows": [ids]}]}</code>, or <code>null</code> to go back to automatic.</td></tr>
+      <tr><td><code>POST /api/context</code></td><td>Builds a context pack: <code>task</code>, <code>budget</code>, <code>pins</code>, <code>seeds</code>, <code>modes</code>.</td></tr>
+      <tr><td><code>GET /api/file?path=…</code></td><td>One file: summary, description, links, definitions and content.</td></tr>
+      <tr><td><code>GET /api/poll?since=N</code></td><td>Changes since version N.</td></tr>
+      <tr><td><code>POST /api/notes</code></td><td>Saves descriptions: <code>{"notes": {"path": "text"}}</code>.</td></tr>
+      <tr><td><code>POST /api/open</code></td><td>Opens a project: <code>{"target": "path or link"}</code>.</td></tr>
+    </tbody>
+  </table>
+</article>
+
+<article class="article" data-page="troubleshooting" data-title="Troubleshooting and FAQ" data-group="Help">
+  <h1>Troubleshooting and FAQ</h1>
+  <p class="intro">Answers to the questions that come up most.</p>
+  <h2 id="old-version">The browser still shows an old version</h2>
+  <p>Only one CodeBase window should be running. Close every CodeBase terminal window, start it again, and reload the page. Because the whole interface is built into the program, replacing the program replaces the interface.</p>
+  <h2 id="blocked">Windows blocks the program</h2>
+  <p>Right-click the file, choose <b>Properties</b>, tick <b>Unblock</b> and press OK. SmartScreen may also ask you to confirm the first time you run it.</p>
+  <h2 id="missing-links">A file shows no links</h2>
+  <p>CodeBase finds links by reading import statements, Laravel namespaces, view names, types used from other files, and data files named in strings. Links made at run time, through service containers, string-based routes or dynamic imports, cannot be seen without running the code.</p>
+  <h2 id="slow">The tree feels slow</h2>
+  <p>Press <b>Parts only</b>, switch to 2D, and hide large folders you do not need in Clean up. Above roughly 3,000 open files the 3D view gets heavy on older computers.</p>
+  <h2 id="wrong-part">A file is in the wrong part</h2>
+  <p>CodeBase goes by what the code does, then the file name, then the folder. A file that does two jobs is put where its strongest evidence points. Describe it in Memory so the next person, and every context pack, knows what it really does.</p>
+  <h2 id="no-flows">No flows were found</h2>
+  <p>Flows start from screens a router shows, web addresses the server answers, and test scenarios. A library, or an app whose routes are built at run time, may have few or none; Architecture and the tree still show its design.</p>
+  <h2 id="ai-data">Does CodeBase send my code to an AI?</h2>
+  <p>No. It never contacts any AI service. It only builds text that you choose to copy into an AI chat.</p>
+  <h2 id="ports">The port is already in use</h2>
+  <p>CodeBase tries ports 4321 to 4340 and uses the first free one, then prints the address in its window. You can run several projects at once this way.</p>
+</article>
+
+      </div>
+      <nav class="pager" id="pager" aria-label="Previous and next page"></nav>
+    </main>
+
+    <aside class="toc" aria-label="On this page"><span class="eyebrow">On this page</span><ul id="toc"></ul></aside>
+  </div>
+
+  <script>
+  (() => {
+    const pages = [...document.querySelectorAll('article[data-page]')];
+    const groups = [];
+    for (const p of pages) { let g = groups.find((x) => x.name === p.dataset.group); if (!g) groups.push(g = { name: p.dataset.group, pages: [] }); g.pages.push(p); }
+    const navEl = document.getElementById('navGroups');
+    navEl.innerHTML = groups.map((g, i) => `<div class="nav-group"><button aria-expanded="true" aria-controls="g${i}">${g.name}</button><ul id="g${i}">${g.pages.map((p) => `<li><a href="#${p.dataset.page}" data-nav="${p.dataset.page}">${p.dataset.title}</a></li>`).join('')}</ul></div>`).join('');
+    navEl.addEventListener('click', (e) => {
+      const b = e.target.closest('.nav-group > button');
+      if (b) { const g = b.parentElement; g.classList.toggle('closed'); b.setAttribute('aria-expanded', String(!g.classList.contains('closed'))); }
+    });
+
+    // code blocks: copy buttons
+    for (const cb of document.querySelectorAll('.codeblock')) {
+      const btn = document.createElement('button');
+      btn.className = 'copy'; btn.type = 'button'; btn.textContent = 'Copy';
+      btn.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(cb.querySelector('pre').textContent); btn.textContent = 'Copied'; } catch { btn.textContent = 'Select it'; }
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1600);
+      });
+      cb.appendChild(btn);
+    }
+
+    function show(id) {
+      let page = pages.find((p) => p.dataset.page === id);
+      let anchor = null;
+      if (!page) {
+        page = pages.find((p) => p.querySelector(`[id="${CSS.escape(id)}"]`));
+        anchor = page ? page.querySelector(`[id="${CSS.escape(id)}"]`) : null;
+      }
+      page = page || pages[0];
+      for (const p of pages) p.hidden = p !== page;
+      document.querySelectorAll('[data-nav]').forEach((a) => { if (a.dataset.nav === page.dataset.page) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+      document.getElementById('crumb').innerHTML = `<a href="#introduction">Docs</a> / ${page.dataset.group} / ${page.dataset.title}`;
+      document.title = `${page.dataset.title} · CodeBase docs`;
+      const heads = [...page.querySelectorAll('h2[id]')];
+      document.getElementById('toc').innerHTML = heads.map((h) => `<li><a href="#${h.id}" data-toc="${h.id}">${h.textContent}</a></li>`).join('');
+      const i = pages.indexOf(page);
+      const prev = pages[i - 1], next = pages[i + 1];
+      document.getElementById('pager').innerHTML =
+        (prev ? `<a class="prev" href="#${prev.dataset.page}"><small>Previous</small>${prev.dataset.title}</a>` : '') +
+        (next ? `<a class="next" href="#${next.dataset.page}"><small>Next</small>${next.dataset.title}</a>` : '');
+      if (anchor) anchor.scrollIntoView(); else window.scrollTo(0, 0);
+      document.getElementById('docsNav').classList.remove('open');
+      document.getElementById('menuBtn').setAttribute('aria-expanded', 'false');
+    }
+    addEventListener('hashchange', () => show(location.hash.slice(1)));
+    show(location.hash.slice(1) || 'introduction');
+
+    // TOC highlight
+    const onScroll = () => {
+      const links = [...document.querySelectorAll('[data-toc]')];
+      let current = null;
+      for (const a of links) { const h = document.getElementById(a.dataset.toc); if (h && h.getBoundingClientRect().top < 140) current = a; }
+      links.forEach((a) => a.classList.toggle('on', a === current));
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+
+    // search
+    const input = document.getElementById('docSearch');
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      document.querySelectorAll('[data-nav]').forEach((a) => {
+        const p = pages.find((x) => x.dataset.page === a.dataset.nav);
+        const hit = q && p.textContent.toLowerCase().includes(q);
+        a.classList.toggle('hit', !!hit);
+        a.parentElement.hidden = !!q && !hit;
+      });
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { const first = [...document.querySelectorAll('[data-nav]')].find((a) => !a.parentElement.hidden); if (first) location.hash = first.dataset.nav; }
+      if (e.key === 'Escape') { input.value = ''; input.dispatchEvent(new Event('input')); input.blur(); }
+    });
+    addEventListener('keydown', (e) => { if (e.key === '/' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); input.focus(); } });
+
+    // theme + mobile menu
+    const themeBtn = document.getElementById('themeBtn');
+    const setLabel = () => { themeBtn.textContent = document.documentElement.dataset.theme === 'light' ? 'Dark' : 'Light'; };
+    setLabel();
+    themeBtn.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('cb-theme', next); } catch (e) {}
+      setLabel();
+    });
+    document.getElementById('menuBtn').addEventListener('click', (e) => {
+      const nav = document.getElementById('docsNav');
+      nav.classList.toggle('open');
+      e.currentTarget.setAttribute('aria-expanded', String(nav.classList.contains('open')));
+    });
+  })();
+  </script>
+</body>
+</html>

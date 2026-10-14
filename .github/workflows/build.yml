@@ -1,0 +1,44 @@
+# Builds ready-to-run CodeBase programs for Windows, macOS and Linux.
+# Run it from the Actions tab ("Run workflow"), or push a tag like v0.3.0
+# to also attach the programs to a GitHub Release.
+name: build
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            file: codebase.exe
+            name: codebase-windows-x64.exe
+          - os: macos-latest
+            file: codebase
+            name: codebase-macos-arm64
+          - os: ubuntu-latest
+            file: codebase
+            name: codebase-linux-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo build --release --locked
+      - name: Name the program
+        shell: bash
+        run: cp "target/release/${{ matrix.file }}" "${{ matrix.name }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: ${{ matrix.name }}
+      - if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.name }}

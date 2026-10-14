@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CodeBase · Understand the code your AI wrote</title>
+  <meta name="description" content="CodeBase maps any project into screens, server, logic and data, explains every file in plain words, and turns what you want into a precise prompt for any AI chat.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <header class="topnav">
+    <div class="wrap">
+      <a class="brand" href="/welcome"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>CodeBase</a>
+      <nav aria-label="Site">
+        <a href="#how">How it works</a>
+        <a href="#ask">Ask AI</a>
+        <a href="#under-the-hood">Under the hood</a>
+        <a href="/docs">Docs</a>
+      </nav>
+      <span class="spacer"></span>
+      <a class="btn small" href="/">Open the app</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <span class="eyebrow">Codebase map for AI-built apps</span>
+          <h1>Understand the code <em>your AI wrote.</em></h1>
+          <p class="lead">Open a folder or a GitHub link. CodeBase finds the project's architecture, traces every journey from the first screen or test step down to the data, shows every version in plain words, and writes the prompt for your next change.</p>
+          <div class="cta">
+            <a class="btn primary" href="/docs#quick-start">Get started</a>
+            <a class="btn" href="/docs">Read the docs</a>
+          </div>
+          <div class="cmd" role="group" aria-label="Command">
+            <code id="heroCmd">codebase ./my-app</code>
+            <button type="button" data-copy-target="heroCmd">Copy</button>
+          </div>
+        </div>
+
+        <div class="preview">
+          <div class="window" aria-label="Preview of the CodeBase app with an example project">
+            <div class="win-bar"><i></i><i></i><i></i><span>CodeBase · invoice-tracker</span></div>
+            <div class="win">
+              <div class="win-side" aria-hidden="true">
+                <div>Overview</div><div>Architecture</div><div class="on">Flows</div><div>Tree</div><div>History</div><div>Ask AI</div>
+              </div>
+              <div class="win-main">
+                <span class="eyebrow">Journey 4 of 7</span>
+                <h4>Create an invoice</h4>
+                <p>The form sends POST /invoices. The route hands it to InvoiceController, which saves an Invoice record.</p>
+                <div class="lanes" id="lanes">
+                  <div class="lane"><h5>Screens</h5><small>What people see</small>
+                    <div class="box" style="--c:var(--l-ui)" id="b1">invoices/index.blade<span>List of all invoices</span></div>
+                    <div class="box" style="--c:var(--l-ui)" id="b2">invoices/form.blade<span>Create or edit one</span></div>
+                    <div class="box" style="--c:var(--l-ui)">invoice-row.blade<span>One table row</span></div>
+                  </div>
+                  <div class="lane"><h5>Server</h5><small>Handles requests</small>
+                    <div class="box sel" style="--c:var(--l-server)" id="b3">InvoiceController<span>Saves and lists invoices</span></div>
+                    <div class="box" style="--c:var(--l-server)">routes/web.php<span>Web addresses</span></div>
+                  </div>
+                  <div class="lane"><h5>Data</h5><small>What gets stored</small>
+                    <div class="box" style="--c:var(--l-data)" id="b4">Invoice.php<span>One invoice record</span></div>
+                    <div class="box" style="--c:var(--l-data)" id="b5">create_invoices<span>Database table</span></div>
+                  </div>
+                  <svg class="wires" id="wires" aria-hidden="true"></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-note"><b>Ask AI</b> picked 4 files for<br>"add a due date to invoices"<br>and wrote a 1,850-token prompt.</div>
+          <p class="preview-caption">Example project shown for illustration.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="why">
+      <div class="wrap split">
+        <div>
+          <span class="eyebrow">The problem</span>
+          <h2>AI writes the code. You still have to own it.</h2>
+        </div>
+        <div class="body">
+          <p>Tools like Cursor, Claude and ChatGPT can build an app in an afternoon. A month later it has a hundred files, and asking for one small change means guessing which files to paste and hoping nothing else breaks.</p>
+          <p>CodeBase reads the project for you. It sorts every file into plain categories, finds the features that run through them, remembers what each file is for, and keeps the map current while you and your AI keep changing things.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="how">
+      <div class="wrap">
+        <span class="eyebrow">What you get</span>
+        <h2>Know how your project works, not just where its files are.</h2>
+        <ol class="caps">
+          <li><span class="n">01</span><h3>The architecture, not the folders</h3><p>Every file gets the part it plays: screen, API client, route, controller, model; or scenario, step definition, page object, driver, hook. Read from what the code does, so feature folders and messy layouts still come out right.</p></li>
+          <li><span class="n">02</span><h3>Every journey, end to end</h3><p>Log in, request a ride, assign a driver, pay. Each flow is traced from the first screen or test step through the server to the data, in the order people use the app. Press play and watch it move.</p></li>
+          <li><span class="n">03</span><h3>A tree that stays still</h3><p>Project, parts, files, as a real tree in 3D or 2D, with the parts in the order data moves through them. Nothing floats; click a part to open it.</p></li>
+          <li><span class="n">04</span><h3>Every version, in plain words</h3><p>What each commit changed in the design, the design at any past version next to today's, and what a file change would break before you make it.</p></li>
+        </ol>
+        <div class="flow" aria-label="Workflow">
+          <div><span class="eyebrow">Step 1</span><h3>Open a project</h3><p>Pick a folder or paste a GitHub link. Dependencies, build output and anything in .gitignore are skipped.</p></div>
+          <div><span class="eyebrow">Step 2</span><h3>Teach it once</h3><p>One copy-paste with any AI chat gives every main folder a plain description that stays tied to the code.</p></div>
+          <div><span class="eyebrow">Step 3</span><h3>Ask for changes</h3><p>Write what you want, confirm the files, paste the prompt. The map shows exactly what changed afterwards.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="ask">
+      <div class="wrap split">
+        <div>
+          <span class="eyebrow">Ask AI</span>
+          <h2>From "make it do this" to a prompt an engineer would write.</h2>
+          <p class="body" style="margin-top:22px">Every prompt has a role, the project context, what each file does, your task, how you will know it worked, and rules that stop the AI from guessing or skipping code. Turn on plain-language mode and the answer comes back with step-by-step instructions.</p>
+        </div>
+        <div class="prompt-demo" aria-label="Example of a generated prompt">
+<pre><span class="t">&lt;role&gt;</span>
+You are a senior Laravel and PHP engineer and a patient
+teacher, helping someone who builds apps with AI tools.
+<span class="t">&lt;/role&gt;</span>
+
+<span class="t">&lt;what_these_files_do&gt;</span>
+- app/Models/Invoice.php (Data, Model): One invoice record.
+- app/Http/Controllers/InvoiceController.php (Server & API,
+  Controller): Saves and lists invoices.
+<span class="t">&lt;/what_these_files_do&gt;</span>
+
+<span class="t">&lt;task&gt;</span>
+Add a due date to invoices and show it in the list.
+<span class="t">&lt;/task&gt;</span>
+
+<span class="t">&lt;rules&gt;</span>
+- If you need a file I have not given you, reply
+  "NEED FILES: …" and stop. Never guess its contents.
+<span class="t">&lt;/rules&gt;</span>
+<span class="c">… plus the code, done-when and answer format</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="under-the-hood">
+      <div class="wrap split">
+        <div>
+          <span class="eyebrow">Under the hood</span>
+          <h2>A single fast program that stays on your computer.</h2>
+        </div>
+        <table class="spec">
+          <tr><th>Engine</th><td>Written in Rust. One executable with the whole interface built in. No Node.js, Python or database to install.</td></tr>
+          <tr><th>Privacy</th><td>Runs on localhost. Your code is never uploaded. Prompts go nowhere until you paste them yourself.</td></tr>
+          <tr><th>Live updates</th><td>Watches the folder and rescans only changed files, so the map follows your edits within a second.</td></tr>
+          <tr><th>Understands</th><td>Laravel and PHP (PSR-4, Blade views and components), JavaScript, TypeScript, Vue, React, Python, Rust, CSS and HTML links. Other languages get structure and summaries.</td></tr>
+          <tr><th>Memory</th><td>Descriptions live in <span class="mono">.codebase/</span> inside the project, so they travel with the repository. Edited files are flagged until their description is confirmed.</td></tr>
+          <tr><th>Limits</th><td>Links are found by pattern matching, not by running your code, so some framework magic stays invisible. Projects above 8,000 files are cut off.</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap">
+        <h2>See what your app is made of.</h2>
+        <div class="cta">
+          <a class="btn primary" href="/docs#quick-start">Get started</a>
+          <a class="btn" href="/">Open the app</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <span>CodeBase. Made by Hasin Md. Daiyan. MIT licence.</span>
+      <span><a href="/docs">Documentation</a><a href="/docs#troubleshooting">Help</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // copy buttons
+    document.addEventListener('click', async (e) => {
+      const b = e.target.closest('[data-copy-target]');
+      if (!b) return;
+      const text = document.getElementById(b.dataset.copyTarget).textContent;
+      try { await navigator.clipboard.writeText(text); b.textContent = 'Copied'; } catch { b.textContent = 'Select it'; }
+      setTimeout(() => { b.textContent = 'Copy'; }, 1600);
+    });
+    // wires between the example boxes
+    function wires() {
+      const svg = document.getElementById('wires'), host = document.getElementById('lanes');
+      if (!svg || !host) return;
+      const r0 = host.getBoundingClientRect();
+      const mid = (id, side) => { const r = document.getElementById(id).getBoundingClientRect(); return [side === 'r' ? r.right - r0.left : r.left - r0.left, r.top - r0.top + r.height / 2]; };
+      const path = (a, b) => { const [x1, y1] = mid(a, 'r'), [x2, y2] = mid(b, 'l'), m = (x1 + x2) / 2; return `<path d="M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}"/>`; };
+      svg.setAttribute('width', r0.width); svg.setAttribute('height', r0.height);
+      svg.innerHTML = path('b1', 'b3') + path('b2', 'b3') + path('b3', 'b4');
+    }
+    addEventListener('load', wires);
+    addEventListener('resize', wires);
+  </script>
+</body>
+</html>
